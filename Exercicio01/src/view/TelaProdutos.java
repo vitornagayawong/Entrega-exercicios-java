@@ -204,7 +204,6 @@ public class TelaProdutos extends javax.swing.JFrame {
 
     private void txtPesquisarKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPesquisarKeyReleased
         // chamando o método pesquisarProdutos de ProdutosDao
-
         Produtos produto = new Produtos();
         produto.setNome(txtPesquisar.getText());
 

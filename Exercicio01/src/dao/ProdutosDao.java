@@ -15,32 +15,31 @@ public class ProdutosDao {
 
     public ProdutosDao() {
         conexao = new ConexaoBanco();
-        if(conexao.conectar()) {
+        if (conexao.conectar()) {
             conn = conexao.getConnection();
         } else {
             JOptionPane.showMessageDialog(null, "Erro ao conectar com o banco!");
         }
     }
-    
+
     public ResultSet pesquisarProdutos(Produtos produto) {
-    String query = "SELECT * FROM produtos WHERE nome like ?";
-    try {
-        pst = conn.prepareStatement(query);
-        pst.setString(1, produto.getNome() + "%");
-        rs = pst.executeQuery();
-        
-        if (rs != null) {
-            return rs;
-        } else {
-            JOptionPane.showMessageDialog(null, "Nenhum produto encontrado.");
+        String query = "SELECT * FROM produtos WHERE nome like ?";
+        try {
+            pst = conn.prepareStatement(query);
+            pst.setString(1, produto.getNome() + "%");
+            rs = pst.executeQuery();
+
+            if (rs != null) {
+                return rs;
+            } else {
+                JOptionPane.showMessageDialog(null, "Nenhum produto encontrado.");
+                return null;
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Erro ao buscar produto no banco: " + e.getMessage());
             return null;
         }
-    } catch (SQLException e) {
-        JOptionPane.showMessageDialog(null, "Erro ao buscar produto no banco: " + e.getMessage());
-        return null;
     }
-}
-
 
     public void inserirProduto(Produtos produto) {
         String query = "INSERT INTO produtos (nome, preco, quantidade, descricao) VALUES (?, ?, ?, ?)";
@@ -80,11 +79,11 @@ public class ProdutosDao {
             JOptionPane.showMessageDialog(null, "Erro ao conectar com o banco!");
         }
     }
-    
+
     public void deletarProduto(Produtos produto) {
         String query = "DELETE FROM produtos WHERE idProd=?";
         try {
-            pst = conn.prepareStatement(query);            
+            pst = conn.prepareStatement(query);
             pst.setInt(1, produto.getIdProd());
             int deletar = pst.executeUpdate();
             if (deletar > 0) {
@@ -96,7 +95,5 @@ public class ProdutosDao {
             JOptionPane.showMessageDialog(null, "Erro ao conectar com o banco!");
         }
     }
-    
-    
 
 }
