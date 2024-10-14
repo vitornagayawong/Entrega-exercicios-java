@@ -44,8 +44,8 @@ public class ContatosDao {
         String query = "SELECT * FROM contatos WHERE nome LIKE ? OR telefone LIKE ?";
         try {
             pst = conn.prepareStatement(query);
-            pst.setString(1, contatos.getNome() + "%");
-            pst.setString(2, contatos.getTelefone() + "%");
+            pst.setString(1, "%" + contatos.getNome() + "%");
+            pst.setString(2, "%"  + contatos.getTelefone() + "%");
             rs = pst.executeQuery();
 
             if (rs != null) {
